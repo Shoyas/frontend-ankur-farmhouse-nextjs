@@ -1,3 +1,4 @@
+import { IUser } from "@/types";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
@@ -22,7 +23,33 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
+    // Change Password by Token
+    changePasswordByToken: build.query({
+      query: () => {
+        return {
+          url: `${AUTH_URL}/change-password`,
+          method: "POST",
+        };
+      },
+      providesTags: [tagTypes.user],
+    }),
+
+    // Get Profile by token
+    getProfileByToken: build.query({
+      query: () => {
+        return {
+          url: `${AUTH_URL}/profile`,
+          method: "GET",
+        };
+      },
+      providesTags: [tagTypes.user],
+    }),
   }),
 });
 
-export const { useUserSigninMutation, useUserSignupMutation } = authApi;
+export const {
+  useUserSigninMutation,
+  useUserSignupMutation,
+  useChangePasswordByTokenQuery,
+  useGetProfileByTokenQuery,
+} = authApi;

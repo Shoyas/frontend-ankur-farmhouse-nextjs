@@ -114,7 +114,7 @@ const AdminListPage = () => {
               type="primary"
               onClick={() => {
                 setOpen(true);
-                deleteAdminHandler(data?.id);
+                setDeleteId(data);
               }}
               danger
               style={{ marginLeft: "3px" }}

@@ -8,6 +8,7 @@ type TextAreaProps = {
   rows?: number;
   value?: string;
   placeholder?: string;
+  
 };
 
 const FormTextArea = ({

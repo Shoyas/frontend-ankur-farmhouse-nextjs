@@ -31,6 +31,15 @@ export const userApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.user],
     }),
+    // Create User
+    createUser: build.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/create-user`,
+        method: "POST",
+        data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
 
     updateUser: build.mutation({
       query: (data) => ({
@@ -53,6 +62,7 @@ export const userApi = baseApi.injectEndpoints({
 export const {
   useGetAllUserQuery,
   useGetSingleUserQuery,
+  useCreateUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
 } = userApi;

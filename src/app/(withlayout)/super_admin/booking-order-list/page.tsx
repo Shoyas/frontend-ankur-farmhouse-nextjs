@@ -178,7 +178,7 @@ const BookingOrderListPage = () => {
     }
   };
   return (
-    <div>
+    <div style={{ margin: "10px" }}>
       <AFBreadCrumb
         items={[
           {

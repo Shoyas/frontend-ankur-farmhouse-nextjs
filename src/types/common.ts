@@ -38,6 +38,7 @@ export interface IOrder {
   createdAt: string;
   updatedAt: string;
   userId: string;
+  user: IUser;
 }
 export interface IBooking_Order {
   id: string;
@@ -54,4 +55,35 @@ export interface IFeedback {
   createdAt: string;
   updatedAt: string;
   userId: string;
+  user: IUser;
+}
+
+export interface IBlog {
+  id: string;
+  title: string;
+  blog: string;
+  contentImg: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  user: IUser;
+}
+export interface ICategory {
+  id: string;
+  title: string;
+  categoryImg: string;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface IService {
+  id: string;
+  title: string;
+  price: string;
+  unit: string;
+  quantity: string;
+  serviceImg: string;
+  categoryId: string;
+  category: ICategory;
+  createdAt: string;
+  updatedAt: string;
 }

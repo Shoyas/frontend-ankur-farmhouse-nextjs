@@ -46,24 +46,24 @@ const FeedbackListPage = () => {
   const { data, isLoading, isError } = useGetAllFeedbackQuery({ ...query });
   const feedbacks = data?.feedbacks;
   const meta = data?.meta;
-  // console.log(users);
+  console.log("Feedback: ", feedbacks);
+  // console.log("Meta: ", meta);
 
   const columns = [
     {
-      title: "Email",
-      dataIndex: "email",
+      title: "Name",
+      dataIndex: "user",
+      render: function (data: any) {
+        return data.name;
+      },
     },
     {
-      title: "Role",
-      dataIndex: "role",
+      title: "Feedback",
+      dataIndex: "feedback",
     },
     {
-      title: "Contact No.",
-      dataIndex: "contactNo",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
+      title: "Feedback ID",
+      dataIndex: "id",
     },
     {
       title: "Created at",
@@ -73,18 +73,18 @@ const FeedbackListPage = () => {
       },
       sorter: true,
     },
+
     {
       title: "Action",
       dataIndex: "id",
-      render: function (data: any) {
-        // console.log(data);
+      render: function (data: string) {
         return (
           <>
             <Button
               type="primary"
               onClick={() => {
                 setOpen(true);
-                deleteFeedbackHandler(data?.id);
+                setDeleteId(data);
               }}
               danger
               style={{ marginLeft: "3px" }}
@@ -114,10 +114,10 @@ const FeedbackListPage = () => {
     setSortOrder("");
     setSearchTerm("");
   };
-
-  const deleteFeedbackHandler = async (id: string) => {
+  const deleteFeedbackHandler = async (deleteId: string) => {
+    console.log(deleteId);
     try {
-      const res = await deleteFeedback(id);
+      const res = await deleteFeedback(deleteId);
       if (res) {
         message.success("Successfully Deleted!");
         setOpen(false);
@@ -128,7 +128,7 @@ const FeedbackListPage = () => {
   };
 
   return (
-    <div>
+    <div style={{ margin: "10px" }}>
       <AFBreadCrumb
         items={[
           {

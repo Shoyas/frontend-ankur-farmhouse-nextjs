@@ -10,7 +10,7 @@ import {
   useGetSingleUserQuery,
   useUpdateUserMutation,
 } from "@/redux/api/userApi";
-import { customerSchema } from "@/schemas/admin";
+import { customerSchema } from "@/schemas/allSchema";
 import { getUserInfo } from "@/services/auth.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";

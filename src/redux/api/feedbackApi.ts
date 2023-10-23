@@ -21,7 +21,6 @@ export const feedbackApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.feedback],
     }),
-
     getSingleFeedback: build.query({
       query: (id: string | string[] | undefined) => {
         return {
@@ -60,6 +59,7 @@ export const feedbackApi = baseApi.injectEndpoints({
 export const {
   useGetAllFeedbackQuery,
   useGetSingleFeedbackQuery,
+  useCreateFeedbackMutation,
   useDeleteFeedbackMutation,
   useUpdateFeedbackMutation,
 } = feedbackApi;

@@ -10,25 +10,26 @@ import { userOptions } from "@/constants/global";
 import UploadImage from "@/components/ui/UploadImage";
 import FormTextArea from "@/components/Forms/FormTextArea";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { adminSchema } from "@/schemas/admin";
-import { useUserSignupMutation } from "@/redux/api/authApi";
+import { adminSchema } from "@/schemas/allSchema";
 import { useRouter } from "next/navigation";
 import ActionBar from "@/components/ui/ActionBar";
+import { useCreateUserMutation } from "@/redux/api/userApi";
 
 const CreateAdminPage = () => {
   const { role } = getUserInfo() as any;
-  const [userSignup] = useUserSignupMutation();
+  const [createUser] = useCreateUserMutation();
   const router = useRouter();
 
   const createAdminOnSubmit = async (data: any) => {
     message.loading("Creating....");
     try {
       console.log("Create Admin: ", data);
-      const res = await userSignup(data);
+      const res = await createUser(data);
+      console.log("After res Create Admin: ", res);
       message.success("Done...");
       if (res) {
-        router.push("/profile");
-        message.success("User signed up successfully");
+        router.push("/super_admin/admin-list");
+        message.success("User created successfully");
       }
     } catch (error: any) {
       console.error(error.message);
@@ -50,7 +51,7 @@ const CreateAdminPage = () => {
         ]}
       />
 
-      <ActionBar title="Create Admin Page" />
+      <ActionBar title="Create Admin" />
       <div>
         <Form
           submitHandler={createAdminOnSubmit}

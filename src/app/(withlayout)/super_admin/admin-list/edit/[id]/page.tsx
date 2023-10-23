@@ -7,7 +7,7 @@ import FormTextArea from "@/components/Forms/FormTextArea";
 import AFBreadCrumb from "@/components/ui/AFBreadCrumb";
 import ActionBar from "@/components/ui/ActionBar";
 import { getUserInfo } from "@/services/auth.service";
-import { adminSchema } from "@/schemas/admin";
+import { adminSchema } from "@/schemas/allSchema";
 
 import { Button, Col, Row, message } from "antd";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,11 +17,13 @@ import {
   useGetSingleUserQuery,
   useUpdateUserMutation,
 } from "@/redux/api/userApi";
+import { useRouter } from "next/navigation";
 
 const EditAdminPage = ({ params }: any) => {
-  const { role, token } = getUserInfo() as any;
+  const { role } = getUserInfo() as any;
   const { id } = params;
   console.log(id);
+  const router = useRouter();
 
   const { data, isLoading } = useGetSingleUserQuery(id);
   const [updateUser] = useUpdateUserMutation();
@@ -30,8 +32,12 @@ const EditAdminPage = ({ params }: any) => {
     message.loading("Updating....");
     try {
       // console.log(data);
-      await updateUser({ id, body: values });
-      message.success("Done");
+      const res = await updateUser({ id, body: values });
+
+      if (res) {
+        router.push("/super_admin/admin-list");
+        message.success("Done");
+      }
     } catch (error: any) {
       console.error(error.message);
     }
@@ -64,7 +70,7 @@ const EditAdminPage = ({ params }: any) => {
         ]}
       />
 
-      <ActionBar title="Edit Admin Page"></ActionBar>
+      <ActionBar title="Edit Admin Page" />
       <div>
         <Form
           submitHandler={editAdminOnSubmit}
