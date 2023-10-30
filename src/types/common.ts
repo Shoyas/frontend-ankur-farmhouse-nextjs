@@ -78,12 +78,39 @@ export interface ICategory {
 export interface IService {
   id: string;
   title: string;
-  price: string;
+  price: number;
   unit: string;
-  quantity: string;
+  quantity: number;
   serviceImg: string;
   categoryId: string;
   category: ICategory;
   createdAt: string;
   updatedAt: string;
+}
+export interface IUpcomingOfferService {
+  id: string;
+  title: string;
+  price: number;
+  unit: string;
+  quantity: number;
+  serviceImg: string;
+  startDate: string;
+  startTime: string;
+  endDate: string;
+  endTime: string;
+  createdAt: string;
+  updatedAt: string;
+  categoryId: string;
+  category: ICategory;
+}
+export interface IReviewAndRating {
+  id: string;
+  review: string;
+  rating: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  serviceId: string;
+  user: IUser;
+  service: IService;
 }

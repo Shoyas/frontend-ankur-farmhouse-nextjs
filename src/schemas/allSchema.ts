@@ -38,3 +38,19 @@ export const serviceSchema = yup.object().shape({
   serviceImg: yup.string().optional(),
   categoryId: yup.string().required("Category is required"),
 });
+export const upcomingServiceSchema = yup.object().shape({
+  title: yup.string().required("Title is required"),
+  price: yup.number().required("Price is required"),
+  unit: yup.string().required("Unit is required"),
+  quantity: yup.number().required("Quantity is required"),
+  serviceImg: yup.string().optional(),
+  categoryId: yup.string().required("Category is required"),
+  startDate: yup.date().required("Start Date is required"),
+  startTime: yup.string().required("Start Time is required"),
+  endDate: yup.date().required("End Date is required"),
+  endTime: yup.string().required("End Time is required"),
+});
+export const categorySchema = yup.object().shape({
+  title: yup.string().required("Title is required"),
+  categoryImg: yup.string().optional(),
+});

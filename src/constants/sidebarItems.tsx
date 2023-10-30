@@ -50,7 +50,7 @@ export const sidebarItems = (role: string) => {
           ),
           key: `/${role}/booking-order-list`,
         },
-      ],
+      ], 
     },
     {
       label: "Manage Feedbacks",

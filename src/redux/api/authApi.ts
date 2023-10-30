@@ -25,10 +25,13 @@ export const authApi = baseApi.injectEndpoints({
     }),
     // Change Password by Token
     changePasswordByToken: build.query({
-      query: () => {
+      query: (authKey) => {
         return {
           url: `${AUTH_URL}/change-password`,
           method: "POST",
+          headers: {
+            Authorization: `${authKey}`,
+          },
         };
       },
       providesTags: [tagTypes.user],

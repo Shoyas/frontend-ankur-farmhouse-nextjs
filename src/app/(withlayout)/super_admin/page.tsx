@@ -20,7 +20,7 @@ const SuperAdminPage = () => {
       <AFBreadCrumb
         items={[
           {
-            label: `${role}`,
+            label: `${role}`, 
             link: `/${role}`,
           },
         ]}

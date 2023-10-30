@@ -16,12 +16,37 @@ import { DeleteOutlined, EyeOutlined, ReloadOutlined } from "@ant-design/icons";
 import ActionBar from "@/components/ui/ActionBar";
 import AFTable from "@/components/ui/AFTable";
 import AFModal from "@/components/ui/AFModal";
-import FormSelectField from "@/components/Forms/FormSelectField";
 import { statusOptions } from "@/constants/global";
 import { Select, Space } from "antd";
+import { Table } from "antd";
+import { useGetSingleServiceQuery } from "@/redux/api/serviceApi";
+import Loading from "./../../../loading";
+
+//Let's try
+// ServiceDetails component
+function ServiceDetails({ serviceId }: { serviceId: string }) {
+  const { data, isLoading } = useGetSingleServiceQuery(serviceId);
+
+  if (isLoading) {
+    return (
+      <span>
+        <Loading />
+      </span>
+    );
+  }
+
+  if (data) {
+    // Assuming that your service API response contains a 'title' property.
+    return <div>Service Name: {data.title}</div>;
+  }
+
+  // Handle the case where data is not available or an error occurred.
+  return <div>Service details not available.</div>;
+}
 
 const OrderListPage = () => {
   const { role } = getUserInfo() as any;
+  const { Column, ColumnGroup } = Table;
 
   const query: Record<string, any> = {};
   const [deleteOrder] = useDeleteOrderMutation();
@@ -56,41 +81,94 @@ const OrderListPage = () => {
   console.log("Order: ", orders);
   const meta = orders?.meta;
 
-  // const [updateOrder] = useUpdateOrderMutation();
+  const [updateOrder] = useUpdateOrderMutation();
 
   const columns = [
     {
       title: "Order Id",
       dataIndex: "id",
     },
+    /*
     {
-      title: "Order Services",
+      title: "Ordered Services",
       dataIndex: "orderedServices",
-      render: function (data: any) {
-        return (
-          data && {
-            columns: [
-              {
-                title: `Order Services`,
-                dataIndex: `Order Services: ${data.id}`,
-              },
-              {
-                title: "Quantity",
-                dataIndex: `Order Services: ${data.quantity}`,
-              },
-            ],
-          }
-        );
+      render: function (orderedServices: any) {
+        if (orderedServices && orderedServices.length > 0) {
+          const serviceStrings = orderedServices.map((service: any) => {
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const { data, isLoading } = useGetSingleServiceQuery(
+              service.serviceId
+            );
+            console.log("Service data: ", data);
+            return `
+            Service Id: ${service.serviceId} 
+            
+            Quantity: ${service.quantity}`;
+          });
+          return (
+            <div style={{ whiteSpace: "pre-line" }}>
+              {serviceStrings.join("\n")}
+            </div>
+          );
+        } else {
+          return "No ordered services";
+        }
       },
     },
+    */
+    // Let's try
+    {
+      title: "Ordered Services",
+      dataIndex: "orderedServices",
+      render: function (orderedServices: any) {
+        if (orderedServices && orderedServices.length > 0) {
+          return (
+            <div>
+              {orderedServices.map((service: any, index: number) => (
+                <div style={{ borderBottom: "1px solid #001529" }} key={index}>
+                  Service Id: {service.serviceId}
+                  <ServiceDetails serviceId={service.serviceId} />
+                  Quantity: {service.quantity}
+                </div>
+              ))}
+            </div>
+          );
+        } else {
+          return "No ordered services";
+        }
+      },
+    },
+
     {
       title: "Status",
       dataIndex: "status",
     },
     {
-      title: "User Id",
-      dataIndex: "userId",
+      title: "User Information",
+      children: [
+        {
+          title: "Name",
+          dataIndex: ["user", "name"],
+          key: "name",
+        },
+        {
+          title: "Email",
+          dataIndex: ["user", "email"],
+          key: "email",
+        },
+        {
+          title: "Address",
+          dataIndex: ["user", "address"],
+          key: "address",
+        },
+        {
+          title: "Contact No.",
+          dataIndex: ["user", "contactNo"],
+          key: "contactNo",
+        },
+      ],
     },
+
     {
       title: "Created at",
       dataIndex: "createdAt",
@@ -99,26 +177,22 @@ const OrderListPage = () => {
       },
       sorter: true,
     },
-    // {
-    //   title: "Contact No.",
-    //   dataIndex: "contactNo",
-    // },
-    // {
-    //   title: "Address",
-    //   dataIndex: "address",
-    // },
-
     {
       title: "Action",
       dataIndex: "id",
       render: function (data: any) {
         // console.log(data);
         const handleChange = async (value: string) => {
-          console.log(`${value}`);
+          console.log(`value: ${value}`);
           message.loading("Updating....");
           try {
-            console.log(data);
-            // await updateOrder({ data, body: value });
+            console.log("ID: ", data);
+            await updateOrder({
+              id: data,
+              body: {
+                status: value,
+              },
+            });
             message.success("Done");
           } catch (error: any) {
             console.error(error.message);
@@ -139,7 +213,7 @@ const OrderListPage = () => {
               type="primary"
               onClick={() => {
                 setOpen(true);
-                deleteOrderHandler(data?.id);
+                setDeleteId(data);
               }}
               danger
               style={{ marginLeft: "3px", marginTop: "10px" }}

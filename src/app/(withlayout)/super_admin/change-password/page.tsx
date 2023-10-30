@@ -4,9 +4,12 @@ import FormInput from "@/components/Forms/FormInput";
 import AFBreadCrumb from "@/components/ui/AFBreadCrumb";
 import ActionBar from "@/components/ui/ActionBar";
 import { authKey } from "@/constants/storageKey";
-import { useChangePasswordByTokenQuery } from "@/redux/api/authApi";
+import {
+  useChangePasswordByTokenQuery,
+  useGetProfileByTokenQuery,
+} from "@/redux/api/authApi";
 import { changePasswordSchema } from "@/schemas/allSchema";
-import { getUserInfo } from "@/services/auth.service";
+import { getUserInfo, removeUserInfo } from "@/services/auth.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Row, Col, message, Button } from "antd";
 import { useRouter } from "next/navigation";
@@ -14,25 +17,33 @@ import { useRouter } from "next/navigation";
 const ChangePasswordPage = () => {
   const { role, userId } = getUserInfo() as any;
   const router = useRouter();
+  const signOut = () => {
+    removeUserInfo(authKey);
+    router.push("/signin");
+  };
+  const { data, isLoading, isError } = useGetProfileByTokenQuery(authKey);
+  const profileInfo = data;
+  console.log("Profile Info: ", profileInfo);
 
-  // const [changePasswordByToken] = useChangePasswordByTokenQuery(authKey);
+  const [changePasswordByToken] = useChangePasswordByTokenQuery(authKey);
 
-  // const changePasswordOnSubmit = async (values: any) => {
-  //   message.loading("Updating....");
-  //   try {
-  //     // console.log(data);
-  //     const res = await changePasswordByToken({ body: values });
+  const changePasswordOnSubmit = async (values: any) => {
+    message.loading("Updating....");
+    try {
+      console.log(values);
+      const res = await changePasswordByToken({ body: values });
+      console.log("Change Password: ", res);
+      if (res) {
+        signOut();
+        message.success("Done");
+      }
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  };
 
-  //     if (res) {
-  //       router.push("/super_admin/admin-list");
-  //       message.success("Done");
-  //     }
-  //   } catch (error: any) {
-  //     console.error(error.message);
-  //   }
-  // };
   return (
-    <div>
+    <div style={{ margin: "10px" }}>
       <AFBreadCrumb
         items={[
           {
@@ -47,10 +58,9 @@ const ChangePasswordPage = () => {
       />
       <ActionBar title="Change password Page" />
       <div>
-        {/* <Form
+        <Form
           submitHandler={changePasswordOnSubmit}
           resolver={yupResolver(changePasswordSchema)}
-          defaultValues={defaultValues}
         >
           <div
             style={{
@@ -98,7 +108,7 @@ const ChangePasswordPage = () => {
           <Button type="primary" htmlType="submit">
             Change
           </Button>
-        </Form> */}
+        </Form>
       </div>
     </div>
   );

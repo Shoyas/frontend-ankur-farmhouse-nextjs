@@ -4,7 +4,7 @@ import { tagTypes } from "../tag-types";
 
 const SERVICE_URL = "/services";
 
-export const blogApi = baseApi.injectEndpoints({
+export const serviceApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getAllService: build.query({
       query: () => {
@@ -63,4 +63,4 @@ export const {
   useCreateServiceMutation,
   useUpdateServiceMutation,
   useDeleteServiceMutation,
-} = blogApi;
+} = serviceApi;
