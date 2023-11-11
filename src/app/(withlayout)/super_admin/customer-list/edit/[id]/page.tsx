@@ -154,7 +154,7 @@ const EditCustomerPage = ({ params }: any) => {
                 span={8}
                 style={{ marginBottom: "10px", marginTop: "20px" }}
               >
-                <UploadImage />
+                <UploadImage name="file"/>
               </Col>
             </Row>
           </div>

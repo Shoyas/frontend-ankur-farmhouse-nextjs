@@ -48,26 +48,36 @@ const CreateServicePage = () => {
   const meta = data?.meta;
   // console.log(categories);
   const categoryOptions: any = categories
-    ? categories.map((category) => ({
+    ? categories.map((category: any) => ({
         label: category.title,
         value: category.id,
       }))
     : null;
-  console.log("categoryOptions: ", categoryOptions);
 
   const [createService] = useCreateServiceMutation();
 
-  const createServiceOnSubmit = async (data: any) => {
+  const createServiceOnSubmit = async (values: any) => {
+    const obj = { ...values };
+    console.log("Service: ", obj);
+    const file = obj["file"];
+    console.log("Service file: ", file);
+    delete obj["file"];
+    const data = JSON.stringify(obj);
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", data);
+
     message.loading("Creating....");
-    console.log("Create Service: ", data);
     try {
-      const res = await createService(data);
+      console.log("Creating Service: ", formData);
+      const res = await createService(formData);
+      console.log("Created Service: ", res);
       if (res) {
         router.push("/super_admin/service-list");
         message.success("Service created successfully");
       }
     } catch (error: any) {
-      message.error("Service is not created!!", error);
+      message.error("Service is not created!!", error.message);
     }
   };
   return (
@@ -93,7 +103,7 @@ const CreateServicePage = () => {
         >
           <div
             style={{
-              border: "1px double lightGray",
+              border: "1px solid #88B51A",
               borderRadius: "5px",
               padding: "15px",
               margin: "10px 0px",
@@ -171,11 +181,11 @@ const CreateServicePage = () => {
                 span={8}
                 style={{ marginBottom: "10px", marginTop: "20px" }}
               >
-                <UploadImage />
+                <UploadImage name="file" />
               </Col>
             </Row>
           </div>
-          <Button type="primary" htmlType="submit">
+          <Button style={{ backgroundColor: "#88B51A" }} htmlType="submit">
             Create Service
           </Button>
         </Form>

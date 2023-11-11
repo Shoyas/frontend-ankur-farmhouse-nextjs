@@ -35,6 +35,7 @@ export const blogApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `${BLOG_URL}/create-blog`,
         method: "POST",
+        contentType: "multipart/form-data",
         data,
       }),
       invalidatesTags: [tagTypes.blog],

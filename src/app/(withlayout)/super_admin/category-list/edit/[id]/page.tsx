@@ -4,35 +4,42 @@ import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import AFBreadCrumb from "@/components/ui/AFBreadCrumb";
 import ActionBar from "@/components/ui/ActionBar";
-import { useCreateCategoryMutation } from "@/redux/api/categoryApi";
-import { categorySchema } from "@/schemas/allSchema";
+import {
+  useGetSingleCategoryQuery,
+  useUpdateCategoryMutation,
+} from "@/redux/api/categoryApi";
 import { getUserInfo } from "@/services/auth.service";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 
-const CreateCategoryPage = () => {
+const EditCategoryPage = ({ params }: any) => {
   const { role } = getUserInfo() as any;
+  const { id } = params;
+
   const router = useRouter();
+  const { data, isLoading } = useGetSingleCategoryQuery(id);
+  const [updateCategory] = useUpdateCategoryMutation();
 
-  const [createCategory] = useCreateCategoryMutation();
-
-  const createServiceOnSubmit = async (data: any) => {
-    message.loading("Creating....");
-    console.log("Create Category: ", data);
+  const editCategoryOnSubmit = async (values: any) => {
+    message.loading("Updating...");
     try {
-      const res = await createCategory(data);
+      const res = await updateCategory({ id, body: values });
       if (res) {
         router.push("/super_admin/category-list");
-        message.success("Category created successfully");
+        message.success("Done");
       }
     } catch (error: any) {
-      message.error("Category is not created!!", error);
+      message.error("Category is not updated", error.message);
     }
   };
 
+  const defaultValues = {
+    title: data?.title || "",
+    categoryImg: data?.categoryImg || "",
+  };
+
   return (
-    <div style={{ margin: "10px" }}>
+    <div style={{ margin: "15px 15px" }}>
       <AFBreadCrumb
         items={[
           {
@@ -40,16 +47,21 @@ const CreateCategoryPage = () => {
             link: `/${role}`,
           },
           {
-            label: `create-category`,
-            link: `/${role}/create-category`,
+            label: `category-list`,
+            link: `/${role}/category-list`,
+          },
+          {
+            label: `edit-category`,
+            link: `/${role}/edit/category`,
           },
         ]}
       />
-      <ActionBar title="Create Category Page" />
+      <ActionBar title="Edit Category" />
       <div style={{ margin: "10px" }}>
         <Form
-          submitHandler={createServiceOnSubmit}
-          resolver={yupResolver(categorySchema)}
+          submitHandler={editCategoryOnSubmit}
+          defaultValues={defaultValues}
+          //   resolver={yupResolver(categorySchema)}
         >
           <div
             style={{
@@ -83,7 +95,7 @@ const CreateCategoryPage = () => {
             </Row>
           </div>
           <Button style={{ backgroundColor: "#88B51A" }} htmlType="submit">
-            Create Category
+            Update Category
           </Button>
         </Form>
       </div>
@@ -91,4 +103,4 @@ const CreateCategoryPage = () => {
   );
 };
 
-export default CreateCategoryPage;
+export default EditCategoryPage;

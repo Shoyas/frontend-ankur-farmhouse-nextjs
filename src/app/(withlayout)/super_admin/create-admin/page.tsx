@@ -20,11 +20,21 @@ const CreateAdminPage = () => {
   const [createUser] = useCreateUserMutation();
   const router = useRouter();
 
-  const createAdminOnSubmit = async (data: any) => {
+  const createAdminOnSubmit = async (values: any) => {
+    const obj = { ...values };
+    console.log("User: ", obj);
+    const file = obj["file"];
+    console.log("User file: ", file);
+    delete obj["file"];
+    const data = JSON.stringify(obj);
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", data);
+
     message.loading("Creating....");
     try {
-      console.log("Create Admin: ", data);
-      const res = await createUser(data);
+      console.log("Create Admin: ", formData);
+      const res = await createUser(formData);
       console.log("After res Create Admin: ", res);
       message.success("Done...");
       if (res) {
@@ -32,7 +42,7 @@ const CreateAdminPage = () => {
         message.success("User created successfully");
       }
     } catch (error: any) {
-      console.error(error.message);
+      message.error("User is not created!!", error.message);
     }
   };
 
@@ -143,11 +153,11 @@ const CreateAdminPage = () => {
                 span={8}
                 style={{ marginBottom: "10px", marginTop: "20px" }}
               >
-                <UploadImage />
+                <UploadImage name="file" />
               </Col>
             </Row>
           </div>
-          <Button type="primary" htmlType="submit">
+          <Button style={{ backgroundColor: "#88B51A" }} htmlType="submit">
             Create Admin
           </Button>
         </Form>

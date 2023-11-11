@@ -26,7 +26,7 @@ const Header = () => {
     },
   ];
   return (
-    <AntHeader>
+    <AntHeader style={{ backgroundColor: "#88B51A" }}>
       <Row justify="end" align="middle" style={{ height: "100%" }}>
         <Dropdown menu={{ items }}>
           <a>

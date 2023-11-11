@@ -23,3 +23,21 @@ export const statusOptions = [
     value: "delivered",
   },
 ];
+export const upcomingStatusOptions = [
+  {
+    label: "Booking",
+    value: "booking",
+  },
+  {
+    label: "Pending",
+    value: "pending",
+  },
+  {
+    label: "Shipped",
+    value: "shipped",
+  },
+  {
+    label: "Delivered",
+    value: "delivered",
+  },
+];

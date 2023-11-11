@@ -6,7 +6,7 @@ import { Button, Col, Row, message } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
-import signinImage from "../../assets/login-image.svg";
+import signinImage from "../../assets/Login-amico.svg";
 import Form from "../Forms/Form";
 import FormInput from "../Forms/FormInput";
 
@@ -60,7 +60,7 @@ const SignInPage = () => {
                 label="Password"
               />
             </div>
-            <Button type="primary" htmlType="submit">
+            <Button style={{ backgroundColor: "#88B51A" }} htmlType="submit">
               Signin
             </Button>
           </Form>

@@ -36,6 +36,7 @@ export const userApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `${USER_URL}/create-user`,
         method: "POST",
+        contentType: "multipart/form-data",
         data,
       }),
       invalidatesTags: [tagTypes.user],

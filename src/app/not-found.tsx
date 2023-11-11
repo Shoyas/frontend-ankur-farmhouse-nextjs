@@ -1,5 +1,5 @@
 import Image from "next/image";
-import notFound from "../assets/404-error-page.svg";
+import notFound from "../assets/404-Error-Page-not-Found.svg";
 
 const NotFoundPage = () => {
   return (

@@ -6,46 +6,46 @@ import FormTextArea from "@/components/Forms/FormTextArea";
 import AFBreadCrumb from "@/components/ui/AFBreadCrumb";
 import ActionBar from "@/components/ui/ActionBar";
 import UploadImage from "@/components/ui/UploadImage";
-import { useCreateBlogMutation } from "@/redux/api/blogApi";
+import {
+  useGetSingleBlogQuery,
+  useUpdateBlogMutation,
+} from "@/redux/api/blogApi";
 import { blogSchema } from "@/schemas/allSchema";
 import { getUserInfo } from "@/services/auth.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 
-const CreateBlogPage = () => {
-  const { role, userId } = getUserInfo() as any;
+const EditBlogPage = ({ params }: any) => {
+  const { role } = getUserInfo() as any;
+  const { id } = params;
 
-  const [createBlog] = useCreateBlogMutation();
   const router = useRouter();
+  const { data, isLoading } = useGetSingleBlogQuery(id);
+  const [updateBlog] = useUpdateBlogMutation();
 
-  const createBlogOnSubmit = async (values: any) => {
-    // Append the userId to the data
-    values.userId = userId;
-    const obj = { ...values };
-    const file = obj["file"];
-    delete obj["file"];
-    const data = JSON.stringify(obj);
-    const formData = new FormData();
-    formData.append("file", file as Blob);
-    formData.append("data", data);
-    message.loading("Creating...");
+  const editBlogOnSubmit = async (values: any) => {
+    message.loading("Updating....");
     try {
-      // console.log("Create Blog: ", formData);
-      const res = await createBlog(formData);
-      // console.log("Created Blog: ", res);
-      message.success("Done...");
+      const res = await updateBlog({ id, body: values });
+
       if (res) {
         router.push("/super_admin/blog-list");
-        message.success("Blog created successfully");
+        message.success("Done");
       }
     } catch (error: any) {
-      message.error("Blog is not created!!", error.message);
+      message.error("Blog is not updated", error.message);
     }
   };
 
+  const defaultValues = {
+    title: data?.title || "",
+    blog: data?.blog || "",
+    contentImg: data?.contentImg || "",
+  };
+
   return (
-    <div style={{ margin: "10px" }}>
+    <div style={{ margin: "15px 15px" }}>
       <AFBreadCrumb
         items={[
           {
@@ -53,17 +53,21 @@ const CreateBlogPage = () => {
             link: `/${role}`,
           },
           {
-            label: `create-blog`,
-            link: `/${role}/create-blog`,
+            label: `blog-list`,
+            link: `/${role}/blog-list`,
+          },
+          {
+            label: `edit-blog`,
+            link: `/${role}/edit/blog`,
           },
         ]}
       />
-
-      <ActionBar title="Create Blog" />
-      <div style={{ margin: "10px" }}>
+      <ActionBar title="Edit Blog" />
+      <div style={{ margin: "10px 0px" }}>
         <Form
-          submitHandler={createBlogOnSubmit}
-          resolver={yupResolver(blogSchema)}
+          submitHandler={editBlogOnSubmit}
+          // resolver={yupResolver(blogSchema)}
+          defaultValues={defaultValues}
         >
           <div
             style={{
@@ -113,7 +117,7 @@ const CreateBlogPage = () => {
             </Row>
           </div>
           <Button style={{ backgroundColor: "#88B51A" }} htmlType="submit">
-            Create Blog
+            Update Blog
           </Button>
         </Form>
       </div>
@@ -121,4 +125,4 @@ const CreateBlogPage = () => {
   );
 };
 
-export default CreateBlogPage;
+export default EditBlogPage;

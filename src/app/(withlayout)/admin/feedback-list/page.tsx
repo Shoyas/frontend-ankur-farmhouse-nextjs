@@ -2,28 +2,24 @@
 
 import AFBreadCrumb from "@/components/ui/AFBreadCrumb";
 import {
-  useDeleteUpcomingServiceMutation,
-  useGetAllUpcomingServiceQuery,
-} from "@/redux/api/upcomingServiceApi";
+  useDeleteFeedbackMutation,
+  useGetAllFeedbackQuery,
+} from "@/redux/api/feedbackApi";
 import { useDebounced } from "@/redux/hooks";
 import { getUserInfo } from "@/services/auth.service";
-import { useState } from "react";
-import dayjs from "dayjs";
-import Link from "next/link";
 import { Button, Input, message } from "antd";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  ReloadOutlined,
-} from "@ant-design/icons";
+import { useState } from "react";
+import { DeleteOutlined, EyeOutlined, ReloadOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
 import ActionBar from "@/components/ui/ActionBar";
 import AFTable from "@/components/ui/AFTable";
 import AFModal from "@/components/ui/AFModal";
 
-const UpcomingServiceListPage = () => {
+const FeedbackListPage = () => {
   const { role } = getUserInfo() as any;
+
   const query: Record<string, any> = {};
-  const [deleteUpcomingService] = useDeleteUpcomingServiceMutation();
+  const [deleteFeedback] = useDeleteFeedbackMutation();
 
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
@@ -47,63 +43,28 @@ const UpcomingServiceListPage = () => {
     query["searchTerm"] = debouncedTerm;
   }
 
-  const { data, isLoading, isError } = useGetAllUpcomingServiceQuery({
-    ...query,
-  });
-  const upcomingService = data?.upcomingService;
+  const { data, isLoading, isError } = useGetAllFeedbackQuery({ ...query });
+  const feedbacks = data?.feedbacks;
   const meta = data?.meta;
-  console.log("upcomingService: ", upcomingService);
+  console.log("Feedback: ", feedbacks);
+  // console.log("Meta: ", meta);
 
   const columns = [
     {
-      title: "Title",
-      dataIndex: "title",
-      ellipsis: true,
-    },
-    {
-      title: "Price",
-      dataIndex: "price",
-    },
-    {
-      title: "Unit",
-      dataIndex: "unit",
-    },
-    {
-      title: "Quantity",
-      dataIndex: "quantity",
-    },
-    {
-      title: "Offer Start Date",
-      dataIndex: "startDate",
+      title: "Name",
+      dataIndex: "user",
       render: function (data: any) {
-        return data && dayjs(data).format("MMMM D, YYYY");
+        return data.name;
       },
     },
     {
-      title: "Offer Start Time",
-      dataIndex: "startTime",
-      format: "h:mm A",
+      title: "Feedback",
+      dataIndex: "feedback",
     },
     {
-      title: "Offer End Date",
-      dataIndex: "endDate",
-      render: function (data: any) {
-        return data && dayjs(data).format("MMMM D, YYYY ");
-      },
+      title: "Feedback ID",
+      dataIndex: "id",
     },
-    {
-      title: "Offer End Time",
-      dataIndex: "endTime",
-      format: "h:mm A",
-    },
-    {
-      title: "Category",
-      dataIndex: "category",
-      render: function (data: any) {
-        return data.title;
-      },
-    },
-
     {
       title: "Created at",
       dataIndex: "createdAt",
@@ -112,24 +73,13 @@ const UpcomingServiceListPage = () => {
       },
       sorter: true,
     },
+
     {
       title: "Action",
       dataIndex: "id",
-      render: function (data: any) {
-        // console.log(data);
+      render: function (data: string) {
         return (
           <>
-            <Link href={`/super_admin/upcoming-service-list/edit/${data}`}>
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                onClick={() => console.log(data)}
-                type="primary"
-              >
-                <EditOutlined />
-              </Button>
-            </Link>
             <Button
               type="primary"
               onClick={() => {
@@ -164,18 +114,19 @@ const UpcomingServiceListPage = () => {
     setSortOrder("");
     setSearchTerm("");
   };
-
-  const deleteUpcomingServiceHandler = async (id: string) => {
+  const deleteFeedbackHandler = async (deleteId: string) => {
+    console.log(deleteId);
     try {
-      const res = await deleteUpcomingService(id);
+      const res = await deleteFeedback(deleteId);
       if (res) {
-        message.success("Service Successfully Deleted!");
+        message.success("Successfully Deleted!");
         setOpen(false);
       }
     } catch (error: any) {
       message.error(error.message);
     }
   };
+
   return (
     <div style={{ margin: "10px" }}>
       <AFBreadCrumb
@@ -185,13 +136,13 @@ const UpcomingServiceListPage = () => {
             link: `/${role}`,
           },
           {
-            label: `upcoming-service-list`,
-            link: `/${role}/upcoming-service-list`,
+            label: `feedback-list`,
+            link: `/${role}/feedback-list`,
           },
         ]}
       />
 
-      <ActionBar title="Upcoming Service List">
+      <ActionBar title="Feedback List">
         <Input
           size="large"
           placeholder="Search"
@@ -216,7 +167,7 @@ const UpcomingServiceListPage = () => {
       <AFTable
         loading={false}
         columns={columns}
-        dataSource={upcomingService}
+        dataSource={feedbacks}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -229,7 +180,7 @@ const UpcomingServiceListPage = () => {
         title="Remove"
         isOpen={open}
         closeModal={() => setOpen(false)}
-        handleOk={() => deleteUpcomingServiceHandler(deleteId)}
+        handleOk={() => deleteFeedbackHandler(deleteId)}
       >
         <p className="my-5">Do you want to remove?</p>
       </AFModal>
@@ -237,4 +188,4 @@ const UpcomingServiceListPage = () => {
   );
 };
 
-export default UpcomingServiceListPage;
+export default FeedbackListPage;

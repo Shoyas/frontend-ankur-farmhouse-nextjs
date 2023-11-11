@@ -35,6 +35,7 @@ export const upcomingServiceApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `${UPCOMING_SERVICE_URL}/create-upcoming-offer-service`,
         method: "POST",
+        contentType: "multipart/form-data",
         data,
       }),
       invalidatesTags: [tagTypes.upcomingService],

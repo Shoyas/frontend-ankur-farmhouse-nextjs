@@ -16,6 +16,8 @@ import { Button, Input, message } from "antd";
 import ActionBar from "@/components/ui/ActionBar";
 import AFTable from "@/components/ui/AFTable";
 import AFModal from "@/components/ui/AFModal";
+import Image from "next/image";
+// import { Image } from "antd";
 
 const BlogListPage = () => {
   const { role } = getUserInfo() as any;
@@ -35,20 +37,20 @@ const BlogListPage = () => {
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
+  // query["searchTerm"] = searchTerm;
 
-  const debouncedTerm = useDebounced({
+  const debouncedSearchTerm = useDebounced({
     searchQuery: searchTerm,
     delay: 600,
   });
 
-  if (!!debouncedTerm) {
-    query["searchTerm"] = debouncedTerm;
+  if (!!debouncedSearchTerm) {
+    query["searchTerm"] = debouncedSearchTerm;
   }
 
   const { data, isLoading, isError } = useGetAllBlogQuery({ ...query });
   const blogs = data?.blogs;
   const meta = data?.meta;
-  // console.log(blogs);
 
   const columns = [
     {
@@ -112,7 +114,7 @@ const BlogListPage = () => {
   ];
 
   const onPaginationChange = (page: number, pageSize: number) => {
-    console.log("Page:", page, "PageSize:", pageSize);
+    // console.log("Page:", page, "PageSize:", pageSize);
     setPage(page);
     setSize(pageSize);
   };
@@ -160,8 +162,9 @@ const BlogListPage = () => {
         <Input
           size="large"
           placeholder="Search"
-          value={searchTerm} // Added value prop
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
           style={{
             width: "20%",
           }}
@@ -179,7 +182,7 @@ const BlogListPage = () => {
         </div>
       </ActionBar>
       <AFTable
-        loading={false}
+        loading={isLoading}
         columns={columns}
         dataSource={blogs}
         pageSize={size}

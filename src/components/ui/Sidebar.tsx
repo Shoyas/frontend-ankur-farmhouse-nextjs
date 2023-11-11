@@ -26,6 +26,7 @@ const Sidebar = () => {
         left: 0,
         top: 0,
         bottom: 0,
+        backgroundColor: "#64BC70",
       }}
     >
       <div
@@ -37,14 +38,15 @@ const Sidebar = () => {
           marginTop: "1rem",
         }}
       >
-        <Link href="/" style={{ color: "white" }}>
+        <Link href="/" style={{ color: "black" }}>
           {collapsed ? "AF" : "Ankur Farm"}
         </Link>
       </div>
       <Menu
-        theme="dark"
+        theme="light"
         defaultSelectedKeys={["1"]}
         mode="inline"
+        style={{ backgroundColor: "#64BC70" }}
         items={sidebarItems(role)}
       />
     </Sider>

@@ -7,6 +7,7 @@ export const adminSchema = yup.object().shape({
   role: yup.string().required("Role is required"),
   contactNo: yup.string().required("Contact Number is required"),
   address: yup.string().required("Address is required"),
+  profileImg: yup.string().optional(),
 });
 export const customerSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -29,6 +30,8 @@ export const changePasswordSchema = yup.object().shape({
 export const blogSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
   blog: yup.string().required("Blog is required"),
+  // userId: yup.string().required("User ID is required"),
+  // contentImg: yup.string().optional(),
 });
 export const serviceSchema = yup.object().shape({
   title: yup.string().required("Title is required"),

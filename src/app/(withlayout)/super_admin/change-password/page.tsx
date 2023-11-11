@@ -28,10 +28,16 @@ const ChangePasswordPage = () => {
   const [changePasswordByToken] = useChangePasswordByTokenQuery(authKey);
 
   const changePasswordOnSubmit = async (values: any) => {
-    message.loading("Updating....");
+    message.loading("Updating...");
+    console.log("Change Password: ", values);
     try {
       console.log(values);
-      const res = await changePasswordByToken({ body: values });
+      const res = await changePasswordByToken({
+        authKey: values.authKey,
+        body: {
+          password: values.newPassword,
+        },
+      });
       console.log("Change Password: ", res);
       if (res) {
         signOut();

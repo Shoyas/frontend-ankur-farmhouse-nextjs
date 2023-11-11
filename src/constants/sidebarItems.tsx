@@ -17,6 +17,7 @@ export const sidebarItems = (role: string) => {
       label: "Profile",
       key: "profile",
       icon: <ProfileOutlined />,
+
       children: [
         {
           label: <Link href={`/${role}`}>My Profile</Link>,
@@ -50,7 +51,7 @@ export const sidebarItems = (role: string) => {
           ),
           key: `/${role}/booking-order-list`,
         },
-      ], 
+      ],
     },
     {
       label: "Manage Feedbacks",
@@ -146,13 +147,13 @@ export const sidebarItems = (role: string) => {
       key: "all-orders",
       children: [
         {
-          label: <Link href={`/${role}/oder-history`}>Order History</Link>, //delivered orders
+          label: <Link href={`/${role}/oder-history`}>Order History</Link>, //!delivered orders
           key: `/${role}/oder-history`,
         },
         {
           label: (
             <Link href={`/${role}/placed-order-list`}>Placed Order List</Link>
-          ), //pending orders
+          ), //!pending orders
           key: `/${role}/placed-order-list`,
         },
         {
@@ -160,7 +161,7 @@ export const sidebarItems = (role: string) => {
             <Link href={`/${role}/booking-oder-history`}>
               Booking Order History
             </Link>
-          ), //delivered upcoming orders
+          ), //!delivered upcoming orders
           key: `/${role}/booking-oder-history`,
         },
         {
@@ -168,7 +169,7 @@ export const sidebarItems = (role: string) => {
             <Link href={`/${role}/placed-booking-order-list`}>
               Placed Booking Order List
             </Link>
-          ), //pending orders
+          ), //!pending orders
           key: `/${role}/placed-booking-order-list`,
         },
       ],

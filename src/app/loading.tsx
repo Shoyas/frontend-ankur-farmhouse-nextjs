@@ -12,7 +12,12 @@ const Loading = () => {
       }}
     >
       <Space>
-        <Spin tip="Loading" size="large">
+        <Spin
+          style={{ color: "#88B51A" }}
+          // tip="Loading"
+          size="large"
+          className="custom-spin-color"
+        >
           <div
             style={{
               padding: "50px",

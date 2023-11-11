@@ -50,20 +50,30 @@ const CreateUpcomingService = () => {
   const meta = data?.meta;
   // console.log(categories);
   const categoryOptions: any = categories
-    ? categories.map((category) => ({
+    ? categories.map((category: any) => ({
         label: category.title,
         value: category.id,
       }))
     : null;
-  console.log("categoryOptions: ", categoryOptions);
 
   const [createUpcomingService] = useCreateUpcomingServiceMutation();
 
-  const createUpcomingServiceOnSubmit = async (data: any) => {
+  const createUpcomingServiceOnSubmit = async (values: any) => {
+    const obj = { ...values };
+    // Convert "price" and "quantity" to numbers
+    obj.price = parseInt(obj.price);
+    obj.quantity = parseInt(obj.quantity);
+    console.log("object: ", obj);
+    const file = obj["file"];
+    console.log("File: ", file);
+    delete obj["file"];
+    const data = JSON.stringify(obj);
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", data);
     message.loading("Creating....");
-    console.log("Create Service: ", data);
     try {
-      const res = await createUpcomingService(data);
+      const res = await createUpcomingService(formData);
       console.log("Upcoming Service: ", res);
       if (res) {
         router.push("/super_admin/upcoming-service-list");
@@ -91,7 +101,7 @@ const CreateUpcomingService = () => {
       <div style={{ margin: "10px" }}>
         <Form
           submitHandler={createUpcomingServiceOnSubmit}
-          resolver={yupResolver(upcomingServiceSchema)}
+          // resolver={yupResolver(upcomingServiceSchema)}
         >
           <div
             style={{
@@ -217,11 +227,11 @@ const CreateUpcomingService = () => {
                 span={8}
                 style={{ marginBottom: "10px", marginTop: "20px" }}
               >
-                <UploadImage />
+                <UploadImage name="file" />
               </Col>
             </Row>
           </div>
-          <Button type="primary" htmlType="submit">
+          <Button style={{ backgroundColor: "#88B51A" }} htmlType="submit">
             Create Upcoming Service
           </Button>
         </Form>

@@ -73,7 +73,7 @@ const CategoryListPage = () => {
         // console.log(data);
         return (
           <>
-            <Link href={`/super_admin/service-list/edit/${data}`}>
+            <Link href={`/super_admin/category-list/edit/${data}`}>
               <Button
                 style={{
                   margin: "0px 5px",

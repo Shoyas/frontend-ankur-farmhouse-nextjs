@@ -35,6 +35,7 @@ export const serviceApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `${SERVICE_URL}/create-service`,
         method: "POST",
+        contentType: "multipart/form-data",
         data,
       }),
       invalidatesTags: [tagTypes.service],

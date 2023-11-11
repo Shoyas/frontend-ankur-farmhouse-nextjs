@@ -7,3 +7,51 @@
   margin: 0;
   font-family: 'Poppins', sans-serif;
 }
+
+/* with text loading
+/* :where(.css-dev-only-do-not-override-3mqfnx).ant-spin-lg .ant-spin-dot i {
+  width: 20px !important;
+  height: 20px !important;
+  background: #88B51A !important;
+} 
+
+:where(.css-dev-only-do-not-override-3mqfnx).ant-spin-nested-loading >div>.ant-spin-lg.ant-spin-show-text .ant-spin-dot {
+  height: 100px;
+  width: 100px;
+}
+
+*/
+
+
+/* Loading Page design */
+
+/* Spin design starts*/
+/* without text loading */
+:where(.css-dev-only-do-not-override-3mqfnx).ant-spin-lg .ant-spin-dot i {
+  width: 50px !important;
+  height: 50px !important;
+  background: #88B51A !important;
+}
+
+:where(.css-dev-only-do-not-override-3mqfnx).ant-spin-nested-loading >div>.ant-spin .ant-spin-dot {
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 50%;
+  margin: -10px;
+  height: 100px;
+  width: 100px
+}
+
+:where(.css-dev-only-do-not-override-3mqfnx).ant-layout .ant-layout-sider-trigger {
+  background: #88B51A !important;
+}
+
+/* Spin design ends*/
+
+
+/* Sidebar colups color  */
+:where(.css-dev-only-do-not-override-3mqfnx).ant-menu-light.ant-menu-inline .ant-menu-sub.ant-menu-inline, :where(.css-dev-only-do-not-override-3mqfnx).ant-menu-light>.ant-menu.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+  /* background: rgba(0, 0, 0, 0.02); */
+  background: #88B51A !important;
+}
+
