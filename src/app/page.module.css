@@ -207,6 +207,9 @@
   .grid {
     grid-template-columns: repeat(2, 50%);
   }
+  .navbar{
+    flex-direction: column;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

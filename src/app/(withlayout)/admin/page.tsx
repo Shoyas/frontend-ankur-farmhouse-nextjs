@@ -1,3 +1,4 @@
+"use client";
 import AFBreadCrumb from "@/components/ui/AFBreadCrumb";
 import ActionBar from "@/components/ui/ActionBar";
 import { authKey } from "@/constants/storageKey";
@@ -9,6 +10,7 @@ import dayjs from "dayjs";
 const AdminPage = () => {
   const { role, userId } = getUserInfo() as any;
   const { data, isLoading, isError } = useGetProfileByTokenQuery(authKey);
+
   const profileInfo = data;
 
   return (

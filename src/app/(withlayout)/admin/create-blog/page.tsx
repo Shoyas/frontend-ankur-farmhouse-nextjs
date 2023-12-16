@@ -19,21 +19,28 @@ const CreateBlogPage = () => {
   const [createBlog] = useCreateBlogMutation();
   const router = useRouter();
 
-  const createBlogOnSubmit = async (data: any) => {
-    message.loading("Creating....");
+  const createBlogOnSubmit = async (values: any) => {
+    // Append the userId to the data
+    values.userId = userId;
+    const obj = { ...values };
+    const file = obj["file"];
+    delete obj["file"];
+    const data = JSON.stringify(obj);
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", data);
+    message.loading("Creating...");
     try {
-      console.log("Create Blog: ", data);
-      // Append the userId to the data
-      data.userId = userId;
-      const res = await createBlog(data);
-      console.log("Created Blog: ", res);
+      // console.log("Create Blog: ", formData);
+      const res = await createBlog(formData);
+      // console.log("Created Blog: ", res);
       message.success("Done...");
       if (res) {
         router.push("/super_admin/blog-list");
         message.success("Blog created successfully");
       }
     } catch (error: any) {
-      console.error(error.message);
+      message.error("Blog is not created!!", error.message);
     }
   };
 
@@ -60,7 +67,7 @@ const CreateBlogPage = () => {
         >
           <div
             style={{
-              border: "1px double lightGray",
+              border: "1px solid #88B51A",
               borderRadius: "5px",
               padding: "15px",
               margin: "10px 0px",
@@ -92,7 +99,7 @@ const CreateBlogPage = () => {
                 span={12}
                 style={{ marginBottom: "10px", marginTop: "20px" }}
               >
-                <UploadImage />
+                <UploadImage name="file" />
               </Col>
             </Row>
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
@@ -105,7 +112,7 @@ const CreateBlogPage = () => {
               </Col>
             </Row>
           </div>
-          <Button type="primary" htmlType="submit">
+          <Button style={{ backgroundColor: "#88B51A" }} htmlType="submit">
             Create Blog
           </Button>
         </Form>
