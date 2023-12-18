@@ -3,7 +3,7 @@
 import { useUserSigninMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.service";
 import { Button, Col, Row, message } from "antd";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useRouter } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
 import signinImage from "../../assets/Login-amico.svg";

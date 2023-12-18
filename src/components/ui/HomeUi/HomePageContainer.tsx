@@ -2,8 +2,8 @@ import { Col, Row } from "antd";
 import dynamic from "next/dynamic";
 import Slider from "./Slider";
 import HomeBannerCard from "./HomeBannerCard";
-import VegetableAreaPage from "./ProductCards";
-import ProductCardPage from "./ProductCards";
+import ServiceAreaPage from "./ServiceAreaPage";
+
 const HomeHeader = dynamic(() => import("./HomeHeader"), {
   ssr: false,
 });
@@ -16,7 +16,7 @@ const HomePageContainer = () => {
           <HomeHeader />
           <Slider />
           <HomeBannerCard />
-          <ProductCardPage />
+          <ServiceAreaPage />
         </Col>
       </Row>
     </div>

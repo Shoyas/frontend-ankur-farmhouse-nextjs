@@ -7,7 +7,7 @@ import { useGetProfileByTokenQuery } from "@/redux/api/authApi";
 import { getUserInfo } from "@/services/auth.service";
 
 import { Button, Col, Row, message, Card } from "antd";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import dayjs from "dayjs";
 
 const SuperAdminPage = () => {

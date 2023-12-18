@@ -1,13 +1,13 @@
 "use client";
 import { Flex } from "antd";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import bannerCardOne from "../../../assets/img/banner/home2-banner-1.png";
 import bannerCardTwo from "../../../assets/img/banner/home2-banner-2.png";
 import bannerCardThree from "../../../assets/img/banner/home2-banner-3.png";
 
 const HomeBannerCard = () => {
   return (
-    <Flex justify="space-between" align="center">
+    <Flex justify="space-between" align="center" style={{ margin: "20px 0px" }}>
       <div style={{ width: "30%" }}>
         <Image
           src={bannerCardOne}

@@ -99,7 +99,7 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { LoadingOutlined } from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
   const reader = new FileReader();

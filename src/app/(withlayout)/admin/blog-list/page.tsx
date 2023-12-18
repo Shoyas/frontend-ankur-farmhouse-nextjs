@@ -16,7 +16,7 @@ import { Button, Input, message } from "antd";
 import ActionBar from "@/components/ui/ActionBar";
 import AFTable from "@/components/ui/AFTable";
 import AFModal from "@/components/ui/AFModal";
-import Image from "next/image";
+import Image from "next/legacy/image";
 // import { Image } from "antd";
 
 const BlogListPage = () => {
