@@ -38,12 +38,7 @@ const UpcomingServiceCardCarousel = ({ service }: any) => {
           >
             Add Cart
           </Button>
-          <InputNumber
-            min={1}
-            max={100000}
-            defaultValue={1}
-            onChange={onChange}
-          />
+          <InputNumber min={1} max={5} defaultValue={0} onChange={onChange} />
         </Flex>,
       ]}
     >

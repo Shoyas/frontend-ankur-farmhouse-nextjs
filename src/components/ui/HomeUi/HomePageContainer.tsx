@@ -3,6 +3,8 @@ import dynamic from "next/dynamic";
 import Slider from "./Slider";
 import HomeBannerCard from "./HomeBannerCard";
 import ServiceAreaPage from "./ServiceAreaPage";
+import WhyChooseArea from "./WhyChooseArea";
+import HomeFooter from "./HomeFooter";
 
 const HomeHeader = dynamic(() => import("./HomeHeader"), {
   ssr: false,
@@ -17,6 +19,8 @@ const HomePageContainer = () => {
           <Slider />
           <HomeBannerCard />
           <ServiceAreaPage />
+          <WhyChooseArea />
+          <HomeFooter />
         </Col>
       </Row>
     </div>

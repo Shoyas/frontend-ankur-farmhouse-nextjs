@@ -11,7 +11,7 @@ export const upcomingServiceApi = baseApi.injectEndpoints({
         return {
           url: UPCOMING_SERVICE_URL,
           method: "GET",
-        };
+        }; 
       },
       transformResponse: (response: IUpcomingOfferService[], meta: IMeta) => {
         return {

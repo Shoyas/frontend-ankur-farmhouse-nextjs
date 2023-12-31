@@ -65,7 +65,7 @@ const CreateUpcomingService = () => {
     obj.quantity = parseInt(obj.quantity);
     console.log("object: ", obj);
     const file = obj["file"];
-    console.log("File: ", file);
+    console.log("File: ", file); 
     delete obj["file"];
     const data = JSON.stringify(obj);
     const formData = new FormData();

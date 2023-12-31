@@ -1,14 +1,21 @@
+"use client";
 import { Card, Button, Flex, InputNumber } from "antd";
 import Meta from "antd/es/card/Meta";
 import Image from "next/legacy/image";
 import product from "../../../assets/img/product/1.jpg";
 import { ShoppingCartOutlined } from "@ant-design/icons";
+import { useState } from "react";
 
 const ServiceItemsPage = ({ service }: any) => {
   console.log("object: ", service);
+  const [value, setValue] = useState<number | null | undefined>(undefined);
 
-  const onChange = (value: number | null) => {
-    console.log("changed", value);
+  const onChange = (e: number | null) => {
+    console.log("changed", e);
+    setValue(e);
+  };
+  const addToCart = () => {
+    console.log("Item added: ", service?.title, "Quantity: ", value);
   };
 
   return (
@@ -40,15 +47,11 @@ const ServiceItemsPage = ({ service }: any) => {
                 cursor: "pointer",
               }}
               icon={<ShoppingCartOutlined />}
+              onClick={addToCart}
             >
               Add Cart
             </Button>
-            <InputNumber
-              min={1}
-              max={100000}
-              defaultValue={1}
-              onChange={onChange}
-            />
+            <InputNumber min={1} max={5} defaultValue={0} onChange={onChange} />
           </Flex>
         </>,
       ]}

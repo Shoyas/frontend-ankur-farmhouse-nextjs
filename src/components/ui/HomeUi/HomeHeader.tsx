@@ -155,6 +155,7 @@ import { useRouter } from "next/navigation";
 import { DownOutlined } from "@ant-design/icons";
 import { useGetAllCategoryQuery } from "@/redux/api/categoryApi";
 import { ICategory } from "@/types";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const { useBreakpoint } = Grid;
 
@@ -251,21 +252,6 @@ const HomeHeader = () => {
           </h4>
         </li>
         <li>
-          {role ? (
-            <h4 onClick={() => signOut()}>
-              <Link href="/" style={{ color: "white" }}>
-                Sign Out
-              </Link>
-            </h4>
-          ) : (
-            <h4>
-              <Link href="/signin" style={{ color: "white" }}>
-                Sign In
-              </Link>
-            </h4>
-          )}
-        </li>
-        <li>
           <h4>
             <Dropdown
               overlay={<CustomMenu categories={categories} />}
@@ -280,6 +266,30 @@ const HomeHeader = () => {
               </a>
             </Dropdown>
           </h4>
+        </li>
+        <li>
+          <h4>
+            <Link href="/orders" style={{ color: "white" }}>
+              <AiOutlineShoppingCart
+                style={{ width: "20px", height: "20px", marginTop: "20px" }}
+              />
+            </Link>
+          </h4>
+        </li>
+        <li>
+          {role ? (
+            <h4 onClick={() => signOut()}>
+              <Link href="/" style={{ color: "white" }}>
+                Sign Out
+              </Link>
+            </h4>
+          ) : (
+            <h4>
+              <Link href="/signin" style={{ color: "white" }}>
+                Sign In
+              </Link>
+            </h4>
+          )}
         </li>
       </ul>
     </HomeHeaderSector>

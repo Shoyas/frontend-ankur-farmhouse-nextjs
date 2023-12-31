@@ -184,7 +184,7 @@ const ServiceAreaPage = () => {
             pauseOnHover={true}
             direction="right"
             speed={50}
-            style={{ backgroundColor: "rgba(136, 181, 26, 1)" }}
+            style={{ backgroundColor: "#F0EFE7" }}
           >
             <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
               {vegetableProduct.map((productItem: any) => (
@@ -228,8 +228,7 @@ const ServiceAreaPage = () => {
             NEWSLETTER
           </h2>
           <p style={{ paddingBottom: "10px", color: "#88B51A", fontSize }}>
-            Submit your email address for newsletter to receive special offers
-            and exclusive news about Ankur Farm's products
+            Submit your email to receive special offers
           </p>
           <Space.Compact style={{ width: "100%" }}>
             <Input placeholder="Enter Email" />
@@ -286,7 +285,7 @@ const ServiceAreaPage = () => {
             pauseOnHover={true}
             direction="left"
             speed={50}
-            style={{ backgroundColor: "rgba(136, 181, 26, 1)" }}
+            style={{ backgroundColor: "#F0EFE7" }}
           >
             <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
               {fishProduct.map((productItem: any) => (
@@ -337,7 +336,7 @@ const ServiceAreaPage = () => {
             pauseOnHover={true}
             direction="right"
             speed={50}
-            style={{ backgroundColor: "rgba(136, 181, 26, 1)" }}
+            style={{ backgroundColor: "#F0EFE7" }}
           >
             <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
               {moshlaProduct.map((productItem: any) => (
@@ -386,7 +385,7 @@ const ServiceAreaPage = () => {
             pauseOnHover={true}
             direction="left"
             speed={50}
-            style={{ backgroundColor: "#88B51A" }}
+            style={{ backgroundColor: "#F0EFE7" }}
           >
             <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
               {eggProduct.map((productItem: any) => (
@@ -415,7 +414,7 @@ const ServiceAreaPage = () => {
             pauseOnHover={true}
             direction="right"
             speed={50}
-            style={{ backgroundColor: "#88B51A" }}
+            style={{ backgroundColor: "#F0EFE7" }}
           >
             <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
               {meatProduct.map((productItem: any) => (
