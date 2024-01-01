@@ -6,7 +6,6 @@ import ServiceAreaPage from "./ServiceAreaPage";
 import WhyChooseArea from "./WhyChooseArea";
 import HomeFooter from "./HomeFooter";
 
-
 const HomeHeader = dynamic(() => import("./HomeHeader"), {
   ssr: false,
 });

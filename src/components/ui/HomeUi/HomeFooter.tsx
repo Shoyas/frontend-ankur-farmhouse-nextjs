@@ -61,7 +61,7 @@ const HomeFooter = () => {
                 Ankur Farm
               </Link>
             </h1>
-            <p style={{ padding: "8px", fontSize, color: "gray" }}>
+            <p style={{ padding: "8px", fontSize: "0.9rem", color: "gray" }}>
               Now the increase in the price of food products is a major problem
               in our country. This problem is mainly due to syndicates created
               by middlemen.
@@ -126,7 +126,10 @@ const HomeFooter = () => {
                 <li style={{ margin: "10px 5px" }}>
                   <Link
                     href={"/"}
-                    style={{ color: "gray", textDecoration: "underline" }}
+                    style={{
+                      color: "gray",
+                      textDecoration: "underline",
+                    }}
                   >
                     Terms & Conditions
                   </Link>

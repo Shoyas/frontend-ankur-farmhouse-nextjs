@@ -25,7 +25,7 @@ const ServiceItemsPage = ({ service }: any) => {
       size="small"
       cover={
         <Image
-          alt="ankur-farm"
+          alt="ankur-farm" 
           src={product}
           loading="lazy"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
