@@ -1,11 +1,12 @@
 "use client";
+
 import { useGetAllServiceQuery } from "@/redux/api/serviceApi";
+import { IService } from "@/types";
 import { Col, Row } from "antd";
 import { useEffect, useState } from "react";
 import ServiceItemsPage from "../HomeUi/ServiceItemsPage";
-import { IService } from "@/types";
 
-const ProductsServiceAreaPage = () => {
+const EggAreaPage = () => {
   const [fontSize, setFontSize] = useState("1.2rem");
 
   const updateFontSizeAndAlign = () => {
@@ -32,8 +33,20 @@ const ProductsServiceAreaPage = () => {
   const query: Record<string, any> = {};
   const { data, isLoading, isError } = useGetAllServiceQuery({ ...query });
   const services: IService[] | undefined = data?.service;
-  console.log("Products Service: ", services);
-
+  let product = [];
+  let eggProduct: any = [];
+  if (data) {
+    product = data.service;
+    if (Array.isArray(services)) {
+      eggProduct = services.filter(
+        (item) =>
+          item.category.title === "Egg" ||
+          item.category.title === "egg" ||
+          item.category.title === "Eggs" ||
+          item.category.title === "eggs"
+      );
+    }
+  }
   return (
     <div>
       <h1
@@ -45,10 +58,10 @@ const ProductsServiceAreaPage = () => {
           marginTop: "20px",
         }}
       >
-        All Products
+        Categories: Egg
       </h1>
       <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
-        {services?.map((productItem: any) => (
+        {eggProduct?.map((productItem: any) => (
           <Col
             key={productItem.id}
             className="gutter-row"
@@ -62,4 +75,4 @@ const ProductsServiceAreaPage = () => {
   );
 };
 
-export default ProductsServiceAreaPage;
+export default EggAreaPage;

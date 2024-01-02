@@ -1,11 +1,12 @@
 "use client";
+
 import { useGetAllServiceQuery } from "@/redux/api/serviceApi";
-import { Col, Row } from "antd";
-import { useEffect, useState } from "react";
 import ServiceItemsPage from "../HomeUi/ServiceItemsPage";
 import { IService } from "@/types";
+import { useEffect, useState } from "react";
+import { Col, Row } from "antd";
 
-const ProductsServiceAreaPage = () => {
+const MeatAreaPage = () => {
   const [fontSize, setFontSize] = useState("1.2rem");
 
   const updateFontSizeAndAlign = () => {
@@ -32,7 +33,21 @@ const ProductsServiceAreaPage = () => {
   const query: Record<string, any> = {};
   const { data, isLoading, isError } = useGetAllServiceQuery({ ...query });
   const services: IService[] | undefined = data?.service;
-  console.log("Products Service: ", services);
+
+  let product = [];
+  let meatProduct: any = [];
+  if (data) {
+    product = data.service;
+    if (Array.isArray(services)) {
+      meatProduct = services.filter(
+        (item) =>
+          item.category.title === "Meat" ||
+          item.category.title === "meat" ||
+          item.category.title === "Meats" ||
+          item.category.title === "meats"
+      );
+    }
+  }
 
   return (
     <div>
@@ -45,10 +60,10 @@ const ProductsServiceAreaPage = () => {
           marginTop: "20px",
         }}
       >
-        All Products
+        Categories: Meat
       </h1>
       <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
-        {services?.map((productItem: any) => (
+        {meatProduct?.map((productItem: any) => (
           <Col
             key={productItem.id}
             className="gutter-row"
@@ -62,4 +77,4 @@ const ProductsServiceAreaPage = () => {
   );
 };
 
-export default ProductsServiceAreaPage;
+export default MeatAreaPage;

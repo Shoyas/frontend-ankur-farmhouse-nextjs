@@ -189,7 +189,7 @@ const HomeHeader = () => {
       {categories &&
         categories.map((category: ICategory) => (
           <Menu.Item key={category.id}>
-            <Link href={`/category/${category.title}`}>{category.title}</Link>
+            <Link href={`/categories/${category.title}`}>{category.title}</Link>
           </Menu.Item>
         ))}
     </Menu>
@@ -239,8 +239,8 @@ const HomeHeader = () => {
         </li>
         <li>
           <h4>
-            <Link href="/blog" style={{ color: "white" }}>
-              Blog
+            <Link href="/blogs" style={{ color: "white" }}>
+              Blogs
             </Link>
           </h4>
         </li>

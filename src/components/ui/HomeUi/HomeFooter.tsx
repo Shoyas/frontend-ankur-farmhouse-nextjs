@@ -104,16 +104,16 @@ const HomeFooter = () => {
             <h1
               style={{
                 fontSize,
-                textAlign: "left",
                 fontWeight: "bold",
                 paddingTop: "0.5rem",
                 marginBottom: "1rem",
                 color: "#88B51A",
+                marginLeft: "10px",
               }}
             >
               Information
             </h1>
-            <div style={{ marginTop: "15px", padding: "8px" }}>
+            <div style={{ marginTop: "15px", paddingLeft: "3px" }}>
               <ul style={{ listStyle: "none" }}>
                 <li style={{ margin: "10px 5px" }}>
                   <Link
@@ -150,16 +150,16 @@ const HomeFooter = () => {
             <h1
               style={{
                 fontSize,
-                textAlign: "left",
                 fontWeight: "bold",
                 paddingTop: "0.5rem",
                 marginBottom: "1rem",
                 color: "#88B51A",
+                marginLeft: "10px",
               }}
             >
               Menu
             </h1>
-            <div style={{ marginTop: "15px", padding: "8px" }}>
+            <div style={{ marginTop: "15px", paddingLeft: "3px" }}>
               <ul style={{ listStyle: "none" }}>
                 <li style={{ margin: "10px 5px" }}>
                   <Link

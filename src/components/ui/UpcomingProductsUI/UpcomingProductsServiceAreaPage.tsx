@@ -41,13 +41,17 @@ const UpcomingProductsServiceAreaPage = () => {
 
   return (
     <div>
-      <h1 style={{
+      <h1
+        style={{
           fontSize,
           color: "#88B51A",
           textDecoration: "underline",
-          width: "20%",
-          margin: "20px auto",
-        }}>Upcoming Products</h1>
+          textAlign: "center",
+          marginTop: '20px',
+        }}
+      >
+        Upcoming Products
+      </h1>
 
       <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
         {upcomingServices.map((service: any) => (

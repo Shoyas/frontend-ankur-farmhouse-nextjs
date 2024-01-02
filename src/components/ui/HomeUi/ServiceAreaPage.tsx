@@ -56,7 +56,7 @@ const ServiceAreaPage = () => {
         categories.map((category: ICategory) => (
           <Menu.Item key={category.id}>
             <Link
-              href={`/category/${category.title}`}
+              href={`/categories/${category.title}`}
               style={{ fontSize, paddingTop: "20px", color: "#88B51A" }}
             >
               {category.title}
