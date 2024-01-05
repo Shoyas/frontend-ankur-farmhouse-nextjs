@@ -1,5 +1,5 @@
 "use client";
-import { Card, Button, Flex, InputNumber } from "antd";
+import { Card, Button, Flex, InputNumber, message } from "antd";
 import Meta from "antd/es/card/Meta";
 import Image from "next/legacy/image";
 import product from "../../../assets/img/product/1.jpg";
@@ -7,15 +7,40 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
 const ServiceItemsPage = ({ service }: any) => {
-  console.log("object: ", service);
+  // console.log("object: ", service);
   const [value, setValue] = useState<number | null | undefined>(undefined);
+  const [orderAddToCart, setOrderAddToCart] = useState<object>();
 
+  console.log("orderAddToCart: ", orderAddToCart);
   const onChange = (e: number | null) => {
     console.log("changed", e);
     setValue(e);
   };
-  const addToCart = () => {
-    console.log("Item added: ", service?.title, "Quantity: ", value);
+  const addToCart = async () => {
+    console.log(
+      "Item added: ",
+      service?.title,
+      "ServiceId: ",
+      service?.id,
+      "Quantity: ",
+      value,
+      "Unit: ",
+      service?.unit
+    );
+
+    try {
+      const order = {
+        serviceTitle: service?.title,
+        serviceId: service?.id,
+        quantity: value,
+        unit: service?.unit,
+      };
+
+      setOrderAddToCart(order);
+      message.success("Order added into cart");
+    } catch (error: any) {
+      message.error("Facing error to add order into cart");
+    }
   };
 
   return (
@@ -25,7 +50,7 @@ const ServiceItemsPage = ({ service }: any) => {
       size="small"
       cover={
         <Image
-          alt="ankur-farm" 
+          alt="ankur-farm"
           src={product}
           loading="lazy"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
