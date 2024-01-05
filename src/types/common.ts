@@ -114,3 +114,11 @@ export interface IReviewAndRating {
   user: IUser;
   service: IService;
 }
+
+export type IOrderToCart = {
+  serviceImg?: string | undefined | null;
+  serviceTitle?: string | undefined;
+  serviceId?: string | undefined;
+  quantity?: number | null | undefined;
+  unit?: string | undefined;
+};

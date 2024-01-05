@@ -6,41 +6,35 @@ import product from "../../../assets/img/product/1.jpg";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
+import { IOrderToCart } from "@/types";
+import { useAppDispatch } from "@/redux/hooks";
+import { ThunkAction } from "redux-thunk";
+import { RootState } from "../../../redux/store";
+import { AnyAction } from "@reduxjs/toolkit";
+import { addToCart } from "@/redux/slices/cartSlice";
+
 const ServiceItemsPage = ({ service }: any) => {
   // console.log("object: ", service);
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState<number | null | undefined>(undefined);
-  const [orderAddToCart, setOrderAddToCart] = useState<object>();
 
-  console.log("orderAddToCart: ", orderAddToCart);
-  const onChange = (e: number | null) => {
+  const onChangeQuantity = (e: number | null) => {
     console.log("changed", e);
     setValue(e);
   };
-  const addToCart = async () => {
-    console.log(
-      "Item added: ",
-      service?.title,
-      "ServiceId: ",
-      service?.id,
-      "Quantity: ",
-      value,
-      "Unit: ",
-      service?.unit
-    );
 
-    try {
-      const order = {
-        serviceTitle: service?.title,
-        serviceId: service?.id,
-        quantity: value,
-        unit: service?.unit,
-      };
+  const order: IOrderToCart = {
+    serviceImg: service?.serviceImg,
+    serviceTitle: service?.title,
+    serviceId: service?.id,
+    quantity: value,
+    unit: service?.unit,
+  };
 
-      setOrderAddToCart(order);
-      message.success("Order added into cart");
-    } catch (error: any) {
-      message.error("Facing error to add order into cart");
-    }
+  const handleAddProduct = (order: IOrderToCart) => {
+    console.log("Add in to Cart: ", order);
+    dispatch(addToCart(order));
+    message.success("Order added into cart");
   };
 
   return (
@@ -72,11 +66,16 @@ const ServiceItemsPage = ({ service }: any) => {
                 cursor: "pointer",
               }}
               icon={<ShoppingCartOutlined />}
-              onClick={addToCart}
+              onClick={() => handleAddProduct(order)}
             >
               Add Cart
             </Button>
-            <InputNumber min={1} max={5} defaultValue={0} onChange={onChange} />
+            <InputNumber
+              min={1}
+              max={5}
+              defaultValue={0}
+              onChange={onChangeQuantity}
+            />
           </Flex>
         </>,
       ]}

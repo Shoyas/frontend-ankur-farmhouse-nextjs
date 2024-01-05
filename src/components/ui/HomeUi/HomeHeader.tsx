@@ -269,7 +269,7 @@ const HomeHeader = () => {
         </li>
         <li>
           <h4>
-            <Link href="/orders" style={{ color: "white" }}>
+            <Link href="/cart" style={{ color: "white" }}>
               <AiOutlineShoppingCart
                 style={{ width: "20px", height: "20px", marginTop: "20px" }}
               />
